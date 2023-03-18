@@ -16,7 +16,7 @@ npm run dev
 
 <img src="https://user-images.githubusercontent.com/15377484/226114870-ba00abf7-23d1-4e42-b703-396841427c2f.png" width="750px" />
 
-Pressing the `Enter` to the clipboard. Pressing `Cmd` + `Enter` copies and pastes. Wishing you a pleasant experience!
+Press the `Enter` to the clipboard. Press `Cmd` + `Enter` copy and paste. Wishing you a pleasant experience!
 
 ### License
 
