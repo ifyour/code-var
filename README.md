@@ -20,4 +20,4 @@ Press the `Enter` to the clipboard. Press `Cmd` + `Enter` copy and paste. Wishin
 
 ### License
 
-Licensed under MIT
+MIT
