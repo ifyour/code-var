@@ -1,3 +1,3 @@
-# Code Var
+# CodeVar
 
-变量命名神器
+> OpenAI translation-based variable naming tool
