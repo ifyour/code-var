@@ -32,7 +32,7 @@
       "description": "Enter your custom OpenAI entrypoint",
       "type": "textfield",
       "title": "OpenAI API Entrypoint",
-      "default": "https://ai.mingming.dev/v1/chat/completions",
+      "default": "https://api.openai.com/v1/chat/completions",
       "required": true
     }
   ],
