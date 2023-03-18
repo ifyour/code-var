@@ -1,6 +1,6 @@
 # CodeVar
 
-> Raycast variable naming extension, based on OpenAI GPT-3.
+> [Raycast](https://www.raycast.com/) variable naming extension, based on OpenAI GPT-3.
 
 ### Usage
 
