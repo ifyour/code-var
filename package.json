@@ -1,0 +1,58 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "code-var",
+  "title": "CodeVar",
+  "description": "Variable Naming Wizard",
+  "icon": "command-icon.png",
+  "author": "ifyour",
+  "categories": [
+    "Developer Tools"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "index",
+      "title": "CodeVar",
+      "description": "Variable Naming Wizard",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "apiKey",
+      "label": "OpenAI API Key",
+      "description": "Enter your personal OpenAI API Key",
+      "type": "password",
+      "title": "OpenAI API Key",
+      "required": true
+    },
+    {
+      "name": "entrypoint",
+      "label": "OpenAI API Entrypoint",
+      "description": "Enter your custom OpenAI entrypoint",
+      "type": "textfield",
+      "title": "OpenAI API Entrypoint",
+      "default": "https://ai.mingming.dev/v1/chat/completions",
+      "required": true
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.48.9",
+    "node-fetch": "^3.3.1"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "1.0.5",
+    "@types/node": "18.8.3",
+    "@types/react": "18.0.9",
+    "eslint": "^7.32.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "ray publish"
+  }
+}
