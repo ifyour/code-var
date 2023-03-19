@@ -14,7 +14,7 @@ git clone https://github.com/ifyour/code-var.git
 cd code-var
 
 # Start the development server by running the following command:
-npm run dev
+npm i && npm run dev
 ```
 
 ### Screenshot
