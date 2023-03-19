@@ -3,8 +3,7 @@
   <img src="./assets/command-icon.png" width="90px" align="right" />
 </h1>
 
-
-CodeVar is a [Raycast](https://www.raycast.com/) variable naming extension that is based on OpenAI GPT-3.
+CodeVar is a variable naming tool for [Raycast](https://www.raycast.com/) extensions powered by OpenAI's GPT-3.
 
 ### Usage
 
