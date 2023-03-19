@@ -1,5 +1,6 @@
 import React from "react";
 import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast } from "@raycast/api";
+
 import { queryVariableNames, getHistory, deleteAllHistory, deleteHistoryItem } from "./useQuery";
 import type { Result } from "./types";
 
