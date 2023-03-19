@@ -9,13 +9,12 @@ export const CODE_VAR_HISTORY = "CODE_VAR_HISTORY";
 export const CASES = [
   "noCase",
   "camelCase",
-  "capitalCase",
+  "pascalCase",
   "constantCase",
+  "sentenceCase",
   "dotCase",
   "headerCase",
   "paramCase",
-  "pascalCase",
   "pathCase",
-  "sentenceCase",
   "snakeCase",
 ] as const;

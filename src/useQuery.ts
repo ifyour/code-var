@@ -55,21 +55,11 @@ export async function queryVariableNames(queryText: string, signal?: AbortSignal
     return Promise.reject(response.statusText);
   } else {
     const content = (await response.json()) as ChatCompletion;
+
     let result: Result[] = [];
     try {
       const text = (content?.choices?.[0]?.message?.content || "").replace(/\n/g, "").replace(/\./g, "").trim();
-      result = CASES.map((caseType) => {
-        if (caseType === "capitalCase") {
-          return {
-            value: changeCase[caseType](text.replace(/ /g, "")),
-            type: caseType,
-          };
-        }
-        return {
-          value: changeCase[caseType](text),
-          type: caseType,
-        };
-      });
+      result = CASES.map((caseType) => ({ value: changeCase[caseType](text), type: caseType }));
     } catch (error) {
       result = [];
     }
