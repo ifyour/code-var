@@ -29,8 +29,8 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
         {
           role: "user",
           content: `Translate variable names into English and apply naming conventions: ${CASES.join(",")}.
-           Save the result in the format: [{value: 'result', type: 'convention'}],
-           serialize the output. The variable name to be translated is: '${content}'`,
+           Save the result in the format: [{value: 'result', type: 'convention'}], serialize the output.
+           The variable name to be translated is: '${content}'`,
         },
       ],
     }),
