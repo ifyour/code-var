@@ -19,7 +19,7 @@ npm run dev
 
 ### Screenshot
 
-Call up Raycast and search for CodeVar. Input the variable you want to translate, and press Enter to copy it to the clipboard. Alternatively, you can press Cmd + Enter to copy and paste it. Enjoy using CodeVar!
+Call up Raycast and search for CodeVar. Input the variable you want to translate, and press `Enter` to copy it to the clipboard. Alternatively, you can press `Cmd` + `Enter` to copy and paste it. Enjoy using CodeVar!
 
 <img src="https://user-images.githubusercontent.com/15377484/226154935-4f1c0052-a8e2-45dc-9cd6-d97dfdf42993.png" width="750px" />
 
