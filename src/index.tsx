@@ -1,7 +1,8 @@
 import React from "react";
+import { debounce } from "lodash";
 import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast } from "@raycast/api";
+import { queryVariableNames, getHistory, deleteAllHistory, deleteHistoryItem } from "./useQuery";
 import type { Result } from "./types";
-import { queryVariableNames } from "./useQuery";
 
 export default function Command() {
   const cancelRef = React.useRef<AbortController | null>(null);
@@ -14,10 +15,17 @@ export default function Command() {
     };
   }, []);
 
-  const onSearchTextChange = async (searchContent: string) => {
+  const onSearchTextChange = async (text: string) => {
     cancelRef.current?.abort();
+    const searchContent = text.trim();
     if (!searchContent) {
       setVariableNames([]);
+      return;
+    }
+    const cache = await getHistory(searchContent);
+    if (cache.length > 0) {
+      setVariableNames(cache);
+      setLoading(false);
       return;
     }
     cancelRef.current = new AbortController();
@@ -41,16 +49,15 @@ export default function Command() {
   return (
     <List
       isLoading={loading}
-      onSearchTextChange={onSearchTextChange}
+      onSearchTextChange={debounce(onSearchTextChange, 500, { trailing: true })}
       searchBarPlaceholder="Please enter variable name"
-      throttle
     >
       {variableNames.map((variableName) => (
         <List.Item
           key={variableName.type}
           title={variableName.value}
           subtitle={variableName.type}
-          icon={Icon.Stars}
+          icon={variableName.query ? Icon.Clock : Icon.Stars}
           actions={
             <ActionPanel>
               <ActionPanel.Section>
@@ -59,6 +66,26 @@ export default function Command() {
                   title="Copy and Paste"
                   onAction={() => Clipboard.paste(variableName.value)}
                   icon={{ source: Icon.CopyClipboard }}
+                />
+              </ActionPanel.Section>
+
+              <ActionPanel.Section title="History">
+                {variableName.query && (
+                  <Action
+                    title="Remove From History"
+                    onAction={async () => {
+                      await deleteHistoryItem(variableName);
+                    }}
+                    icon={{ source: Icon.Trash }}
+                    shortcut={{ modifiers: ["cmd"], key: "d" }}
+                  />
+                )}
+                <Action
+                  title="Clear All History"
+                  onAction={async () => {
+                    await deleteAllHistory();
+                  }}
+                  icon={{ source: Icon.ExclamationMark }}
                 />
               </ActionPanel.Section>
             </ActionPanel>

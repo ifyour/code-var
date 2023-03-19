@@ -3,6 +3,7 @@ import type { CASES } from "./constants";
 export interface Result {
   value: string;
   type: (typeof CASES)[number];
+  query?: string;
 }
 
 export interface ChatCompletion {

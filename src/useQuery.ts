@@ -1,19 +1,36 @@
 import * as changeCase from "change-case";
-import { LocalStorage, getPreferenceValues } from "@raycast/api";
+import { LocalStorage, getPreferenceValues, showToast, Toast } from "@raycast/api";
 import fetch from "node-fetch";
 
-import { CASES } from "./constants";
+import { CASES, CODE_VAR_HISTORY } from "./constants";
 import type { Result, ChatCompletion } from "./types";
 
-// todo：Return results directly from query history
-export async function getSearchHistory(): Promise<Result[]> {
-  const historyString = (await LocalStorage.getItem("history")) as string;
+export async function getHistory(queryText: string): Promise<Result[]> {
+  const historyString = (await LocalStorage.getItem(`${CODE_VAR_HISTORY}_${queryText}`)) as string;
   if (historyString === undefined) return [];
   const items: Result[] = JSON.parse(historyString);
   return items;
 }
 
-export async function queryVariableNames(content: string, signal?: AbortSignal): Promise<Result[]> {
+export async function deleteAllHistory() {
+  await LocalStorage.clear();
+  showToast({
+    style: Toast.Style.Success,
+    title: "Success",
+    message: "Cleared search history",
+  });
+}
+
+export async function deleteHistoryItem(result: Result) {
+  await LocalStorage.removeItem(`${CODE_VAR_HISTORY}_${result.query}`);
+  showToast({
+    style: Toast.Style.Success,
+    title: "Success",
+    message: "Removed from history",
+  });
+}
+
+export async function queryVariableNames(queryText: string, signal?: AbortSignal): Promise<Result[]> {
   const { entrypoint, apiKey } = getPreferenceValues<{ entrypoint: string; apiKey: string }>();
 
   const response = await fetch(entrypoint, {
@@ -28,7 +45,7 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
       messages: [
         {
           role: "user",
-          content: `Translate to en: \n\n ${content}`,
+          content: `Translate to en: \n\n ${queryText}`,
         },
       ],
     }),
@@ -41,15 +58,29 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
     let result: Result[] = [];
     try {
       const text = (content?.choices?.[0]?.message?.content || "").replace(/\n/g, "").replace(/\./g, "").trim();
-      result = CASES.map((type) => {
-        if (type === "capitalCase") {
-          return { value: changeCase[type](text.replace(/ /g, "")), type };
+      result = CASES.map((caseType) => {
+        if (caseType === "capitalCase") {
+          return {
+            value: changeCase[caseType](text.replace(/ /g, "")),
+            type: caseType,
+          };
         }
-        return { value: changeCase[type](text), type };
+        return {
+          value: changeCase[caseType](text),
+          type: caseType,
+        };
       });
     } catch (error) {
       result = [];
     }
+
+    if (queryText && result.length > 0) {
+      await LocalStorage.setItem(
+        `${CODE_VAR_HISTORY}_${queryText}`,
+        JSON.stringify(result.map((item) => ({ ...item, query: queryText })))
+      );
+    }
+
     return result;
   }
 }
