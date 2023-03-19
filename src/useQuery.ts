@@ -1,5 +1,7 @@
+import * as changeCase from "change-case";
 import { LocalStorage, getPreferenceValues } from "@raycast/api";
 import fetch from "node-fetch";
+
 import { CASES } from "./constants";
 import type { Result, ChatCompletion } from "./types";
 
@@ -22,14 +24,11 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      // https://platform.openai.com/docs/api-reference/chat/create
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "user",
-          content: `Translate variable names into English and apply naming conventions: ${CASES.join(",")}.
-           Save the result in the format: [{value: 'result', type: 'convention'}]. Serialize the output without any explanation.
-           The string to be translated is "${content}"`,
+          content: `Translate to en: \n\n ${content}`,
         },
       ],
     }),
@@ -41,7 +40,8 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
     const content = (await response.json()) as ChatCompletion;
     let result: Result[] = [];
     try {
-      result = JSON.parse(content?.choices?.[0]?.message?.content);
+      const text = (content?.choices?.[0]?.message?.content || "").replace(/\n|\./g, "");
+      result = CASES.map((type) => ({ value: changeCase[type](text), type }));
     } catch (error) {
       result = [];
     }
