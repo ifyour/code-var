@@ -42,6 +42,8 @@ export default function Command() {
         });
       }
       setVariableNames([]);
+    } finally {
+      setLoading(false);
     }
   };
 
