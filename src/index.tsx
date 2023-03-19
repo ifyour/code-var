@@ -1,5 +1,4 @@
 import React from "react";
-import { debounce } from "lodash";
 import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast } from "@raycast/api";
 import { queryVariableNames, getHistory, deleteAllHistory, deleteHistoryItem } from "./useQuery";
 import type { Result } from "./types";
@@ -49,8 +48,9 @@ export default function Command() {
   return (
     <List
       isLoading={loading}
-      onSearchTextChange={debounce(onSearchTextChange, 500, { trailing: true })}
+      onSearchTextChange={onSearchTextChange}
       searchBarPlaceholder="Please enter variable name"
+      throttle
     >
       {variableNames.map((variableName) => (
         <List.Item
