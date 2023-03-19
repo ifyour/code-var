@@ -22,13 +22,15 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
+      // https://platform.openai.com/docs/api-reference/chat/create
       model: "gpt-3.5-turbo",
+      temperature: 0.2,
       messages: [
         {
           role: "user",
           content: `Translate variable names into English and apply naming conventions: ${CASES.join(",")}.
-           Save the result in the format: [{value: 'translation result', type: 'naming convention'}],
-           serialize the output. I want to translate is: ${content}`,
+           Save the result in the format: [{value: 'result', type: 'convention'}],
+           serialize the output. The variable name to be translated is: '${content}'`,
         },
       ],
     }),
