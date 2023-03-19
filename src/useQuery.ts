@@ -40,8 +40,13 @@ export async function queryVariableNames(content: string, signal?: AbortSignal):
     const content = (await response.json()) as ChatCompletion;
     let result: Result[] = [];
     try {
-      const text = (content?.choices?.[0]?.message?.content || "").replace(/\n|\./g, "");
-      result = CASES.map((type) => ({ value: changeCase[type](text), type }));
+      const text = (content?.choices?.[0]?.message?.content || "").replace(/\n/g, "").replace(/\./g, "").trim();
+      result = CASES.map((type) => {
+        if (type === "capitalCase") {
+          return { value: changeCase[type](text.replace(/ /g, "")), type };
+        }
+        return { value: changeCase[type](text), type };
+      });
     } catch (error) {
       result = [];
     }
