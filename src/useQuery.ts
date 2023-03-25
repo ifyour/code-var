@@ -45,7 +45,7 @@ export async function queryVariableNames(queryText: string, signal?: AbortSignal
       messages: [
         {
           role: "user",
-          content: `Translate to en: \n\n ${queryText}`,
+          content: `Translate to en (variable name): \n\n ${queryText}`,
         },
       ],
     }),
