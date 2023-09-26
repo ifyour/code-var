@@ -39,7 +39,7 @@ export default function Command() {
         showToast({
           style: Toast.Style.Failure,
           title: "Error",
-          message: (error as Error)?.message,
+          message: String(error) || (error as Error)?.message,
         });
       }
       setVariableNames([]);
