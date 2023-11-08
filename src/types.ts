@@ -6,24 +6,12 @@ export interface Result {
   query?: string;
 }
 
-export interface ChatCompletion {
-  id: string;
-  object: string;
-  created: number;
-  model: string;
-  usage: {
-    prompt_tokens: number;
-    completion_tokens: number;
-    total_tokens: number;
+export interface Response {
+  header: {
+    type: string;
+    ret_code: string;
+    time_cost: number;
+    request_id: string;
   };
-  choices: [
-    {
-      message: {
-        role: string;
-        content: string;
-      };
-      finish_reason: string;
-      index: number;
-    }
-  ];
+  auto_translation: string;
 }

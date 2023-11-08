@@ -1,9 +1,9 @@
 import * as changeCase from "change-case";
-import { LocalStorage, getPreferenceValues, showToast, Toast } from "@raycast/api";
+import { LocalStorage, showToast, Toast } from "@raycast/api";
 import fetch from "node-fetch";
 
 import { CASES, CODE_VAR_HISTORY } from "./constants";
-import type { Result, ChatCompletion } from "./types";
+import type { Result, Response } from "./types";
 
 export async function getHistory(queryText: string): Promise<Result[]> {
   const historyString = (await LocalStorage.getItem(`${CODE_VAR_HISTORY}_${queryText}`)) as string;
@@ -31,46 +31,39 @@ export async function deleteHistoryItem(result: Result) {
 }
 
 export async function queryVariableNames(queryText: string, signal?: AbortSignal): Promise<Result[]> {
-  const { entrypoint, apiKey } = getPreferenceValues<{ entrypoint: string; apiKey: string }>();
-
-  const response = await fetch(entrypoint, {
+  const response = await fetch("https://transmart.qq.com/api/imt", {
     method: "POST",
     signal: signal,
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
-      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: `Translate to en (variable name): \n\n ${queryText}`,
-        },
-      ],
+      header: {
+        fn: "auto_translation_block",
+        client_key:
+          "dHJhbnNtYXJ0X2NyeF9Nb3ppbGxhLzUuMCAoTWFjaW50b3NoOyBJbnRlbCBNYWMgT1MgWCAxMF8xNV83KSBBcHBsZVdlYktpdC81",
+      },
+      source: {
+        text_block: queryText,
+        lang: "zh",
+      },
+      target: {
+        lang: "en",
+      },
     }),
   });
 
   if (!response.ok) {
     return Promise.reject(response.statusText);
   } else {
-    const content = (await response.json()) as ChatCompletion;
-
     let result: Result[] = [];
+    const content = (await response.json()) as Response;
     try {
-      const text = (content?.choices?.[0]?.message?.content || "").replace(/\n/g, "").replace(/\./g, "").trim();
+      const text = (content.auto_translation || "").replace(/\n/g, "").replace(/\./g, "").trim();
       result = CASES.map((caseType) => ({ value: changeCase[caseType](text), type: caseType }));
     } catch (error) {
       result = [];
     }
-
-    if (queryText && result.length > 0) {
-      await LocalStorage.setItem(
-        `${CODE_VAR_HISTORY}_${queryText}`,
-        JSON.stringify(result.map((item) => ({ ...item, query: queryText })))
-      );
-    }
-
     return result;
   }
 }

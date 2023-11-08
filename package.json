@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "code-var",
   "title": "CodeVar",
-  "description": "CodeVar is a variable naming tool for Raycast extensions powered by OpenAI's GPT-3.",
+  "description": "CodeVar is a variable naming tool for Raycast extensions powered by Tencent TranSmart.",
   "icon": "command-icon.png",
   "author": "ifyour",
   "categories": [
@@ -13,27 +13,8 @@
     {
       "name": "index",
       "title": "CodeVar",
-      "description": "CodeVar is a variable naming tool for Raycast extensions powered by OpenAI's GPT-3.",
+      "description": "CodeVar is a variable naming tool for Raycast extensions powered by Tencent TranSmart.",
       "mode": "view"
-    }
-  ],
-  "preferences": [
-    {
-      "name": "apiKey",
-      "label": "OpenAI API Key",
-      "description": "Enter your personal OpenAI API Key",
-      "type": "password",
-      "title": "OpenAI API Key",
-      "required": true
-    },
-    {
-      "name": "entrypoint",
-      "label": "OpenAI API Entrypoint",
-      "description": "Enter your custom OpenAI entrypoint",
-      "type": "textfield",
-      "title": "OpenAI API Entrypoint",
-      "default": "https://api.openai.com/v1/chat/completions",
-      "required": true
     }
   ],
   "dependencies": {

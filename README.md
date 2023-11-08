@@ -3,20 +3,17 @@
   <img src="./assets/command-icon.png" width="90px" align="right" />
 </h1>
 
-CodeVar is a variable naming tool for [Raycast](https://www.raycast.com/) extensions powered by OpenAI's GPT-3.
+CodeVar is a variable naming tool for [Raycast](https://www.raycast.com/) extensions powered by Tencent TranSmart.
 
 ### Usage
 
 To use CodeVar, follow these steps:
 
 ```bash
-# Clone the repository by running the following command in your terminal:
 git clone https://github.com/ifyour/code-var.git
 
-# Navigate to the cloned repository by running the following command:
 cd code-var
 
-# Start the development server by running the following command:
 npm i && npm run dev
 ```
 
