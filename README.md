@@ -14,7 +14,7 @@ git clone https://github.com/ifyour/code-var.git
 
 cd code-var
 
-npm i && npm run dev
+yarn && yarn dev
 ```
 
 ### Screenshot
