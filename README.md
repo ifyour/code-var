@@ -21,7 +21,7 @@ npm i && npm run dev
 
 Call up Raycast and search for CodeVar. Input the variable you want to translate, and press `Enter` to copy it to the clipboard. Alternatively, you can press `Cmd` + `Enter` to copy and paste it. Enjoy using CodeVar!
 
-<img src="https://images.mingming.dev/file/4934af243f4f132fbd766.png" width="750px" />
+<img src="./assets/demo.png" width="750px" />
 
 ### License
 
