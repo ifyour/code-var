@@ -1,11 +1,10 @@
-/**
- * The unique key for LocalStorage
- */
+import { getPreferenceValues } from "@raycast/api";
+import type { Preferences } from "./types";
+
+export const PREFERENCES = getPreferenceValues<Preferences>();
+
 export const CODE_VAR_HISTORY = "CODE_VAR_HISTORY";
 
-/**
- * Turn on the type of query needed on demand
- */
 export const CASES = [
   "noCase",
   "camelCase",
@@ -18,3 +17,5 @@ export const CASES = [
   "pathCase",
   "snakeCase",
 ] as const;
+
+export const IGNORE_WORDS = ["and", "or", "the", "a", "at", "of", "was", "an"];

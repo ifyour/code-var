@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "code-var",
   "title": "CodeVar",
-  "description": "CodeVar is a variable naming tool for Raycast extensions powered by Tencent TranSmart.",
+  "description": "Generate variable names in multiple formats case.",
   "icon": "command-icon.png",
   "author": "ifyour",
   "categories": [
@@ -13,8 +13,47 @@
     {
       "name": "index",
       "title": "CodeVar",
-      "description": "CodeVar is a variable naming tool for Raycast extensions powered by Tencent TranSmart.",
+      "description": "Generate variable names in multiple formats case.",
       "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "title": "Translate Source",
+      "description": "Translation source.",
+      "name": "translateSource",
+      "data": [
+        {
+          "title": "Google Translate",
+          "value": "google"
+        },
+        {
+          "title": "Tencent Translate",
+          "value": "tencent"
+        }
+      ],
+      "type": "dropdown",
+      "default": "google",
+      "required": false
+    },
+    {
+      "title": "Query Cache",
+      "name": "isEnableCache",
+      "label": "Enable Cache",
+      "description": "Duplicate queries are then read from the query history.",
+      "type": "dropdown",
+      "data": [
+        {
+          "title": "Disable",
+          "value": "0"
+        },
+        {
+          "title": "Enable",
+          "value": "1"
+        }
+      ],
+      "default": "0",
+      "required": false
     }
   ],
   "dependencies": {

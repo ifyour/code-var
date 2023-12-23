@@ -1,8 +1,9 @@
 import React from "react";
 import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast } from "@raycast/api";
 
-import { queryVariableNames, getHistory, deleteAllHistory, deleteHistoryItem } from "./useQuery";
 import type { Result } from "./types";
+import { PREFERENCES } from "./constants";
+import { queryVariableNames, getHistory, deleteAllHistory, deleteHistoryItem } from "./useQuery";
 
 export default function Command() {
   const cancelRef = React.useRef<AbortController | null>(null);
@@ -22,11 +23,13 @@ export default function Command() {
       setVariableNames([]);
       return;
     }
-    const cache = await getHistory(searchContent);
-    if (cache.length > 0) {
-      setVariableNames(cache);
-      setLoading(false);
-      return;
+    if (PREFERENCES.isEnableCache === "1") {
+      const cache = await getHistory(searchContent);
+      if (cache.length > 0) {
+        setVariableNames(cache);
+        setLoading(false);
+        return;
+      }
     }
     cancelRef.current = new AbortController();
     try {
