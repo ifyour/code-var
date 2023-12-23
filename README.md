@@ -3,18 +3,16 @@
   <img src="./assets/command-icon.png" width="90px" align="right" />
 </h1>
 
-CodeVar is a variable naming tool for [Raycast](https://www.raycast.com/) extensions powered by Tencent TranSmart.
+Generate variable names in multiple formats case.
 
 ### Usage
-
-To use CodeVar, follow these steps:
 
 ```bash
 git clone https://github.com/ifyour/code-var.git
 
 cd code-var
 
-yarn && yarn dev
+npm i && npm run dev
 ```
 
 ### Screenshot
@@ -23,6 +21,10 @@ Call up Raycast and search for CodeVar. Input the variable you want to translate
 
 <img src="./assets/demo.png" width="750px" />
 
+You can navigate to CodeVar in the Extensions tab to set its translation source and whether you need to enable query caching.
+
+<img src="./assets/configs.png" width="750px" />
+
 ### License
 
-CodeVar is licensed under the MIT License.
+MIT
