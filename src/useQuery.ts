@@ -91,11 +91,17 @@ async function queryByGoogle(text: string, signal?: AbortSignal) {
 
 export async function queryVariableNames(queryText: string, signal?: AbortSignal): Promise<Result[]> {
   let result: Result[] = [];
+  let translationResults = "";
+  const isEnglishOrNumber = (text: string) => /^[a-zA-Z0-9 ]+$/.test(text);
 
-  const translationResults =
-    PREFERENCES.translateSource === "google"
-      ? await queryByGoogle(queryText, signal)
-      : await queryByTencent(queryText, signal);
+  if (isEnglishOrNumber(queryText)) {
+    translationResults = queryText;
+  } else {
+    translationResults =
+      PREFERENCES.translateSource === "google"
+        ? await queryByGoogle(queryText, signal)
+        : await queryByTencent(queryText, signal);
+  }
 
   try {
     const variableNames = translationResults

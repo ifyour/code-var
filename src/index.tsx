@@ -1,5 +1,5 @@
 import React from "react";
-import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, List, Icon, Clipboard, showToast, Toast, getSelectedText } from "@raycast/api";
 
 import type { Result } from "./types";
 import { PREFERENCES } from "./constants";
@@ -11,12 +11,18 @@ export default function Command() {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    (async () => {
+      const selectedText = (await getSelectedText().catch(() => ""))?.trim?.();
+      if (selectedText) {
+        onSearchTextChange(selectedText);
+      }
+    })();
     return () => {
       cancelRef.current?.abort();
     };
   }, []);
 
-  const onSearchTextChange = async (text: string) => {
+  async function onSearchTextChange(text: string) {
     cancelRef.current?.abort();
     const searchContent = text.trim();
     if (!searchContent) {
@@ -49,7 +55,7 @@ export default function Command() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <List
