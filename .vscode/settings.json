@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["raycast"]
+  "cSpell.words": ["raycast"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
